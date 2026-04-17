@@ -5,8 +5,11 @@ import { COLLECTIONS } from "../lib/productImages";
 import { useCart } from "../context/CartContext";
 import SizeGuideModal from "./SizeGuideModal";
 
+const SIZES = ["XS", "S", "M", "L", "XL", "Custom"];
+
 const Card = ({ item, index, onSizeGuide }) => {
   const { addItem } = useCart();
+  const [size, setSize] = useState("M");
 
   return (
     <motion.article
@@ -66,10 +69,29 @@ const Card = ({ item, index, onSizeGuide }) => {
             </div>
           </div>
 
+          {/* Size pills */}
+          <div className="mb-4 flex items-center gap-2 flex-wrap">
+            <span className="text-[0.6rem] tracking-[0.3em] uppercase text-white/40 mr-1">Size</span>
+            {SIZES.map((s) => (
+              <button
+                key={s}
+                onClick={() => setSize(s)}
+                className={`text-[0.65rem] tracking-[0.2em] uppercase px-3 py-1.5 border transition-all duration-300 ${
+                  size === s
+                    ? "border-[#D4AF37] bg-[#D4AF37] text-[#0A0908]"
+                    : "border-white/15 text-white/70 hover:border-[#D4AF37]/60 hover:text-[#D4AF37]"
+                }`}
+                data-testid={`size-${s.toLowerCase()}-${item.id}`}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+
           {/* Actions */}
           <div className="flex flex-col sm:flex-row gap-3 border-t border-white/10 pt-5">
             <button
-              onClick={() => addItem(item)}
+              onClick={() => addItem(item, { size })}
               className="group/btn flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#D4AF37] text-[#0A0908] text-[0.7rem] tracking-[0.3em] uppercase hover:bg-white transition-all duration-500"
               data-testid={`add-to-cart-${item.id}`}
             >

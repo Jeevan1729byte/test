@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import axios from "axios";
 import { WHATSAPP_NUMBER } from "../lib/brand";
+
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const CartContext = createContext(null);
 
@@ -105,6 +108,32 @@ export const CartProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, subtotal]);
 
+  // Fire-and-forget order capture. Returns the WhatsApp URL even on failure.
+  const captureOrder = async (status = "booked") => {
+    if (items.length === 0) return checkoutUrl;
+    try {
+      const payload = {
+        items: items.map((i) => ({
+          id: i.id,
+          name: i.name,
+          price: i.price,
+          size: i.size,
+          fabric: i.fabric,
+          qty: i.qty,
+        })),
+        subtotal,
+        status,
+        source: "website",
+      };
+      await axios.post(`${API}/orders`, payload, { timeout: 5000 });
+    } catch (err) {
+      // Non-blocking — we still let the user WhatsApp-book.
+      // eslint-disable-next-line no-console
+      console.warn("Order capture failed:", err?.message || err);
+    }
+    return checkoutUrl;
+  };
+
   const value = {
     items,
     isOpen,
@@ -118,6 +147,7 @@ export const CartProvider = ({ children }) => {
     count,
     subtotal,
     checkoutUrl,
+    captureOrder,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
