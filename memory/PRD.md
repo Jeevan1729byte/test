@@ -49,6 +49,23 @@ responsive.
 ```
 
 ## What's been implemented (Dec 2025)
+
+### Iteration 2 — Cart flow + real imagery
+- Replaced all SVG silhouettes with real luxury abaya photography from Unsplash
+  (hero, 4 collection cards, 9 Instagram tiles — all credited to @raheemblacksnows).
+- New **cart flow** — each collection card now has an **Add to Cart** + **Size Guide** button.
+- Cart drawer (`Cart.jsx`) slides in from the right with: line items, image, qty +/−,
+  per-line total, remove, subtotal, clear. Persisted via localStorage (`shestylish_cart_v1`).
+- Nav **cart button** with gold count badge (desktop + mobile).
+- **Book Order on WhatsApp** button in the cart opens `wa.me/96891234567` with a
+  beautifully formatted order message listing every item, size, fabric, qty, line totals and
+  subtotal.
+- **Made-to-Measure Size Guide modal** (`SizeGuideModal.jsx`) — XS–XL + Custom size chart
+  in cm, with bust / waist / hip / length measurement tips.
+- 18/21 testing-agent checks passing (3 remaining are test-selector / animation-timing
+  nits, not functional bugs).
+
+### Iteration 1 — Landing page MVP
 - Full landing page with all 10 required sections.
 - Animated brand loader (framer-motion, 2.6s duration) with gold-shimmer text reveal.
 - Sticky glassmorphism navigation with scroll-aware blur, Instagram link, mobile drawer.
