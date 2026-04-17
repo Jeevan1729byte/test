@@ -50,6 +50,18 @@ responsive.
 
 ## What's been implemented (Dec 2025)
 
+### Iteration 3 — Size selector + MongoDB order capture
+- **Size pill selector** (XS / S / M / L / XL / Custom, default M) on every collection card.
+  Selected size is carried into the cart line item and into the WhatsApp order message.
+- **Backend orders API** (`/app/backend/server.py`):
+  - `POST /api/orders` — create a booked / abandoned order (items, subtotal, status, source)
+  - `GET /api/orders` — list orders (filter by `status=booked|abandoned`, `limit=N`)
+  - `GET /api/orders/summary` — `{ total, booked, abandoned, revenue_omr }`
+  - Stored in Mongo `orders` collection with UUID `id`, ISO `created_at`; `_id` excluded on reads.
+- **Frontend capture**: `Cart.jsx` fires a non-blocking `axios.post('/api/orders', { items, subtotal, status:'booked' })`
+  on click of the WhatsApp booking button, then the anchor still navigates to `wa.me/96891234567`.
+- Testing agent: backend 13/13 pass · frontend 95% (0 critical/minor issues).
+
 ### Iteration 2 — Cart flow + real imagery
 - Replaced all SVG silhouettes with real luxury abaya photography from Unsplash
   (hero, 4 collection cards, 9 Instagram tiles — all credited to @raheemblacksnows).
