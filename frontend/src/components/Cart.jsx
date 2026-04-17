@@ -5,13 +5,7 @@ import { X, Minus, Plus, Trash2, ArrowUpRight, ShoppingBag } from "lucide-react"
 import { useCart, lineKey } from "../context/CartContext";
 
 export const Cart = () => {
-  const { isOpen, close, items, updateQty, removeItem, clear, subtotal, checkoutUrl, captureOrder } = useCart();
-
-  const handleBookClick = (e) => {
-    // Fire-and-forget order capture — does not block navigation.
-    // The anchor still opens WhatsApp in a new tab.
-    try { captureOrder("booked"); } catch (_) { /* noop */ }
-  };
+  const { isOpen, close, items, updateQty, removeItem, clear, subtotal, checkoutUrl } = useCart();
 
   useEffect(() => {
     if (isOpen) {
@@ -176,7 +170,6 @@ export const Cart = () => {
                   href={checkoutUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={handleBookClick}
                   className="group w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#D4AF37] text-[#0A0908] text-xs tracking-[0.3em] uppercase hover:bg-white transition-all duration-500"
                   data-testid="cart-book-whatsapp"
                 >

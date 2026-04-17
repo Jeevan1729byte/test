@@ -1,0 +1,16 @@
+[build]
+  base    = "frontend/"
+  command = "yarn build"
+  publish = "frontend/build"
+
+[build.environment]
+  NODE_VERSION = "20"
+  # Not required by the site (the site is fully static),
+  # but CRA will throw if the var is referenced and missing.
+  REACT_APP_BACKEND_URL = "https://unused.local"
+
+# SPA fallback so deep links always resolve to index.html
+[[redirects]]
+  from   = "/*"
+  to    = "/index.html"
+  status = 200
