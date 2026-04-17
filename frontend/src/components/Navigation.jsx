@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FaInstagram } from "react-icons/fa";
-import { Menu, X } from "lucide-react";
-import { INSTAGRAM_LINK, WHATSAPP_LINK } from "../lib/brand";
+import { Menu, X, ShoppingBag } from "lucide-react";
+import { INSTAGRAM_LINK } from "../lib/brand";
+import { useCart } from "../context/CartContext";
 
 export const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { count, open: openCart } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -19,6 +21,25 @@ export const Navigation = () => {
     { label: "Reviews", href: "#reviews" },
     { label: "Booking", href: "#booking" },
   ];
+
+  const CartButton = ({ className = "", testId = "nav-cart-btn" }) => (
+    <button
+      onClick={openCart}
+      className={`relative inline-flex items-center gap-2 text-white/80 hover:text-[#D4AF37] transition-colors ${className}`}
+      aria-label="Open cart"
+      data-testid={testId}
+    >
+      <ShoppingBag size={20} strokeWidth={1.3} />
+      {count > 0 && (
+        <span
+          className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 flex items-center justify-center rounded-full bg-[#D4AF37] text-[#0A0908] text-[0.6rem] tracking-tight font-medium"
+          data-testid="nav-cart-count"
+        >
+          {count}
+        </span>
+      )}
+    </button>
+  );
 
   return (
     <header
@@ -75,29 +96,22 @@ export const Navigation = () => {
           >
             <FaInstagram className="text-lg" />
           </a>
-          <a
-            href={WHATSAPP_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[0.7rem] tracking-[0.3em] uppercase px-5 py-2.5 border border-[#D4AF37]/60 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#0A0908] transition-all duration-500"
-            data-testid="nav-book-cta"
-          >
-            Book Now
-          </a>
+          <CartButton className="ml-1" />
         </nav>
 
-        {/* Mobile: hamburger + IG */}
-        <div className="flex lg:hidden items-center gap-4">
+        {/* Mobile: IG + Cart + Hamburger */}
+        <div className="flex lg:hidden items-center gap-5">
           <a
             href={INSTAGRAM_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/80"
+            className="text-white/80 hover:text-[#D4AF37] transition-colors"
             data-testid="nav-instagram-link-mobile"
             aria-label="Instagram"
           >
             <FaInstagram className="text-xl" />
           </a>
+          <CartButton testId="nav-cart-btn-mobile" />
           <button
             onClick={() => setOpen(!open)}
             className="text-white/80 p-2"
@@ -112,7 +126,7 @@ export const Navigation = () => {
       {/* Mobile drawer */}
       <div
         className={`lg:hidden overflow-hidden transition-all duration-500 border-t border-white/5 bg-[#0A0908]/95 backdrop-blur-xl ${
-          open ? "max-h-[420px]" : "max-h-0"
+          open ? "max-h-[480px]" : "max-h-0"
         }`}
         data-testid="nav-mobile-drawer"
       >
@@ -128,16 +142,14 @@ export const Navigation = () => {
               {l.label}
             </a>
           ))}
-          <a
-            href={WHATSAPP_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setOpen(false)}
-            className="mt-2 inline-block text-center text-xs tracking-[0.3em] uppercase px-5 py-3 border border-[#D4AF37]/60 text-[#D4AF37]"
-            data-testid="nav-mobile-book-cta"
+          <button
+            onClick={() => { setOpen(false); openCart(); }}
+            className="mt-2 inline-flex items-center justify-center gap-2 text-xs tracking-[0.3em] uppercase px-5 py-3 border border-[#D4AF37]/60 text-[#D4AF37]"
+            data-testid="nav-mobile-cart-cta"
           >
-            Book on WhatsApp
-          </a>
+            <ShoppingBag size={14} />
+            View Cart {count > 0 && `(${count})`}
+          </button>
         </div>
       </div>
     </header>

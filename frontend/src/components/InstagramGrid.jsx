@@ -1,22 +1,19 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaInstagram } from "react-icons/fa";
-import AbayaSilhouette from "./AbayaSilhouette";
 import { INSTAGRAM_LINK } from "../lib/brand";
+import { IMG } from "../lib/productImages";
 
-// 9 placeholder Instagram tiles — each built from an abaya SVG + subtle texture
-// bg so we don't rely on unrelated stock imagery. Editorial, high-contrast.
-
-const tiles = [
-  { variant: "classic", tint: "from-[#0e0d0c] to-[#1a1814]", label: "Royal Noir" },
-  { variant: "flared", tint: "from-[#141210] to-[#0e0c0a]", label: "Desert Gold" },
-  { variant: "kaftan", tint: "from-[#0a0908] to-[#15120f]", label: "Pearl Mirage" },
-  { variant: "structured", tint: "from-[#121010] to-[#0a0908]", label: "Midnight Bloom" },
-  { variant: "editorial", tint: "from-[#15130f] to-[#0a0908]", label: "Atelier" },
-  { variant: "classic", tint: "from-[#0a0908] to-[#18140e]", label: "Behind the Seams" },
-  { variant: "kaftan", tint: "from-[#0e0c0a] to-[#0a0908]", label: "Muscat Studio" },
-  { variant: "flared", tint: "from-[#0a0908] to-[#141210]", label: "Embroidery Detail" },
-  { variant: "structured", tint: "from-[#121010] to-[#18150f]", label: "Fitting Room" },
+const labels = [
+  "Royal Noir",
+  "Editorial Edit",
+  "Atelier Moments",
+  "Desert Gold",
+  "Muscat Studio",
+  "Behind the Seams",
+  "Midnight Bloom",
+  "Pearl Mirage",
+  "Fitting Room",
 ];
 
 export const InstagramGrid = () => {
@@ -45,7 +42,7 @@ export const InstagramGrid = () => {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-[2px] md:gap-[3px]">
-          {tiles.map((t, i) => (
+          {IMG.ig.map((src, i) => (
             <motion.a
               key={i}
               href={INSTAGRAM_LINK}
@@ -55,22 +52,23 @@ export const InstagramGrid = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: i * 0.05 }}
-              className={`group relative aspect-square overflow-hidden bg-gradient-to-br ${t.tint}`}
+              className="group relative aspect-square overflow-hidden bg-[#121110]"
               data-testid={`ig-tile-${i}`}
             >
-              {/* Silhouette */}
-              <div className="absolute inset-0 flex items-center justify-center p-6 md:p-8 transition-transform duration-[1200ms] ease-out group-hover:scale-110">
-                <AbayaSilhouette variant={t.variant} className="w-full h-full opacity-70" stroke="#D4AF37" />
-              </div>
-
-              {/* Grain / overlay */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/70 transition-colors duration-500" />
+              <img
+                src={src}
+                alt={labels[i]}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover grayscale-[30%] transition-all duration-[1200ms] ease-out group-hover:scale-110 group-hover:grayscale-0"
+              />
+              {/* Dark overlay on hover */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-colors duration-500" />
 
               {/* Hover content */}
               <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-4 text-center">
                 <FaInstagram className="text-[#D4AF37] text-2xl mb-3" />
-                <p className="font-display text-lg md:text-xl text-white italic">{t.label}</p>
-                <span className="mt-2 text-[0.6rem] tracking-[0.3em] uppercase text-white/50">
+                <p className="font-display text-lg md:text-xl text-white italic">{labels[i]}</p>
+                <span className="mt-2 text-[0.6rem] tracking-[0.3em] uppercase text-white/60">
                   View on Instagram
                 </span>
               </div>

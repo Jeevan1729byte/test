@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
 import { ArrowUpRight } from "lucide-react";
 import { WHATSAPP_LINK } from "../lib/brand";
-import AbayaSilhouette from "./AbayaSilhouette";
+import { IMG } from "../lib/productImages";
 
 export const Hero = () => {
   return (
@@ -12,7 +12,7 @@ export const Hero = () => {
       className="relative min-h-screen pt-28 md:pt-32 overflow-hidden"
       data-testid="hero-section"
     >
-      {/* Soft gold glow behind type */}
+      {/* Soft gold glows */}
       <div
         aria-hidden
         className="absolute -left-40 top-1/3 w-[560px] h-[560px] rounded-full blur-[120px] pointer-events-none"
@@ -68,24 +68,23 @@ export const Hero = () => {
             className="mt-10 flex flex-col sm:flex-row gap-4 sm:items-center"
           >
             <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#collections"
               className="group inline-flex items-center justify-center gap-3 px-8 py-4 border border-[#D4AF37] text-[#D4AF37] text-xs tracking-[0.3em] uppercase hover:bg-[#D4AF37] hover:text-[#0A0908] transition-all duration-500"
-              data-testid="hero-whatsapp-cta"
+              data-testid="hero-view-collections"
             >
-              <FaWhatsapp className="text-base group-hover:scale-110 transition-transform" />
-              Book on WhatsApp
+              Shop Collections
               <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
 
             <a
-              href="#collections"
-              className="inline-flex items-center gap-2 px-6 py-4 text-xs tracking-[0.3em] uppercase text-white/70 hover:text-white transition-colors"
-              data-testid="hero-view-collections"
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 px-6 py-4 text-xs tracking-[0.3em] uppercase text-white/70 hover:text-[#D4AF37] transition-colors"
+              data-testid="hero-whatsapp-cta"
             >
-              View Collections
-              <span className="inline-block w-6 h-px bg-white/40 group-hover:bg-white transition-all" />
+              <FaWhatsapp className="text-base" />
+              Enquire on WhatsApp
             </a>
           </motion.div>
 
@@ -104,42 +103,41 @@ export const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Right: Abaya silhouette */}
-        <div className="lg:col-span-5 relative h-[520px] md:h-[620px] lg:h-[720px]">
+        {/* Right: Hero image */}
+        <div className="lg:col-span-5 relative h-[520px] md:h-[620px] lg:h-[760px]">
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 3.0, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0 flex items-center justify-center"
           >
-            {/* Frame */}
-            <div className="relative w-full h-full border border-[#D4AF37]/15 bg-gradient-to-b from-[#121110] to-[#0A0908]">
+            <div className="relative w-full h-full border border-[#D4AF37]/15 overflow-hidden bg-[#121110]">
               {/* Corner accents */}
-              <span className="absolute top-0 left-0 w-6 h-6 border-t border-l border-[#D4AF37]/60" />
-              <span className="absolute top-0 right-0 w-6 h-6 border-t border-r border-[#D4AF37]/60" />
-              <span className="absolute bottom-0 left-0 w-6 h-6 border-b border-l border-[#D4AF37]/60" />
-              <span className="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-[#D4AF37]/60" />
+              <span className="absolute top-0 left-0 w-6 h-6 border-t border-l border-[#D4AF37]/70 z-20" />
+              <span className="absolute top-0 right-0 w-6 h-6 border-t border-r border-[#D4AF37]/70 z-20" />
+              <span className="absolute bottom-0 left-0 w-6 h-6 border-b border-l border-[#D4AF37]/70 z-20" />
+              <span className="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-[#D4AF37]/70 z-20" />
 
-              {/* Silhouette */}
-              <div className="absolute inset-0 flex items-center justify-center p-8 float-slow">
-                <AbayaSilhouette
-                  variant="editorial"
-                  className="w-full h-full max-w-sm"
-                  stroke="#D4AF37"
-                />
-              </div>
+              {/* Image */}
+              <img
+                src={IMG.hero}
+                alt="SheStylish luxury abaya"
+                className="absolute inset-0 w-full h-full object-cover"
+                data-testid="hero-image"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0908]/70 via-transparent to-[#0A0908]/20" />
 
               {/* Vertical overline */}
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 -rotate-90 origin-center">
-                <span className="text-[0.65rem] tracking-[0.4em] uppercase text-white/30 whitespace-nowrap">
+              <div className="absolute left-4 top-1/2 -translate-y-1/2 -rotate-90 origin-center z-10">
+                <span className="text-[0.65rem] tracking-[0.4em] uppercase text-white/70 whitespace-nowrap drop-shadow-md">
                   Signature Silhouette — 2025
                 </span>
               </div>
 
               {/* Price tag */}
-              <div className="absolute bottom-6 right-6 text-right">
+              <div className="absolute bottom-6 right-6 text-right z-10">
                 <p className="overline mb-1">From</p>
-                <p className="font-display text-3xl text-white">OMR 85</p>
+                <p className="font-display text-3xl text-white drop-shadow-lg">OMR 120</p>
               </div>
             </div>
           </motion.div>

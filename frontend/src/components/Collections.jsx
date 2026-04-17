@@ -1,116 +1,100 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaWhatsapp } from "react-icons/fa";
-import { ArrowUpRight } from "lucide-react";
-import AbayaSilhouette from "./AbayaSilhouette";
-import { buildWaLink } from "../lib/brand";
+import { ShoppingBag, Ruler, ArrowUpRight } from "lucide-react";
+import { COLLECTIONS } from "../lib/productImages";
+import { useCart } from "../context/CartContext";
+import SizeGuideModal from "./SizeGuideModal";
 
-const collections = [
-  {
-    name: "Royal Noir",
-    tagline: "Signature Classic",
-    description: "Deep black silk with hand-applied gold thread at the cuffs. The house's signature silhouette.",
-    price: "OMR 120",
-    variant: "classic",
-    span: "lg:col-span-7",
-    height: "h-[560px] md:h-[640px]",
-  },
-  {
-    name: "Desert Gold",
-    tagline: "Limited Edition",
-    description: "A warm sand-washed crêpe with subtle gold embroidery along the bodice.",
-    price: "OMR 165",
-    variant: "flared",
-    span: "lg:col-span-5",
-    height: "h-[560px] md:h-[640px]",
-  },
-  {
-    name: "Pearl Mirage",
-    tagline: "Evening Edit",
-    description: "Pearl-beaded sleeves, fluid chiffon overlay. Designed for majlis and celebrations.",
-    price: "OMR 195",
-    variant: "kaftan",
-    span: "lg:col-span-5",
-    height: "h-[520px] md:h-[600px]",
-  },
-  {
-    name: "Midnight Bloom",
-    tagline: "Couture Occasion",
-    description: "Architectural cut with a sculpted waist. Embroidered florals in antique gold.",
-    price: "OMR 240",
-    variant: "structured",
-    span: "lg:col-span-7",
-    height: "h-[520px] md:h-[600px]",
-  },
-];
+const Card = ({ item, index, onSizeGuide }) => {
+  const { addItem } = useCart();
 
-const Card = ({ item, index }) => {
   return (
-    <motion.a
-      href={buildWaLink(`Hello She Stylish 🌟 I would like to book the ${item.name} abaya please`)}
-      target="_blank"
-      rel="noopener noreferrer"
+    <motion.article
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.9, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       className={`group relative ${item.span} col-span-12`}
-      data-testid={`collection-card-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
+      data-testid={`collection-card-${item.id}`}
     >
-      <div className={`relative ${item.height} overflow-hidden bg-[#121110] border border-[#D4AF37]/10 transition-colors duration-700 group-hover:border-[#D4AF37]/40`}>
-        {/* Corner tick */}
+      <div
+        className={`relative ${item.height} overflow-hidden bg-[#121110] border border-[#D4AF37]/10 transition-colors duration-700 group-hover:border-[#D4AF37]/40`}
+      >
+        {/* Image */}
+        <img
+          src={item.image}
+          alt={item.name}
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.05]"
+          data-testid={`collection-img-${item.id}`}
+        />
+
+        {/* Dark gradient for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+
+        {/* Corner ticks */}
         <span className="absolute top-0 left-0 w-4 h-4 border-t border-l border-[#D4AF37]/70 z-10" />
         <span className="absolute top-0 right-0 w-4 h-4 border-t border-r border-[#D4AF37]/70 z-10" />
         <span className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-[#D4AF37]/70 z-10" />
         <span className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-[#D4AF37]/70 z-10" />
 
-        {/* Silhouette */}
-        <div className="absolute inset-0 flex items-center justify-center p-10 transition-transform duration-1000 ease-out group-hover:scale-[1.04]">
-          <AbayaSilhouette variant={item.variant} className="w-full h-full max-w-[300px]" stroke="#D4AF37" />
-        </div>
-
-        {/* Gradient vignette on hover */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-        {/* Index number top-left */}
-        <span className="absolute top-5 left-5 z-10 text-[0.65rem] tracking-[0.35em] uppercase text-white/40">
+        {/* Index */}
+        <span className="absolute top-5 left-5 z-10 text-[0.65rem] tracking-[0.35em] uppercase text-white/60">
           №&nbsp;0{index + 1}
         </span>
 
         {/* Tagline */}
         <span className="absolute top-5 right-5 z-10 overline">{item.tagline}</span>
 
-        {/* Bottom info */}
+        {/* Bottom content */}
         <div className="absolute left-0 right-0 bottom-0 z-10 p-6 md:p-8">
-          <div className="flex items-end justify-between gap-6">
+          <div className="flex items-end justify-between gap-6 mb-5">
             <div>
               <h3 className="font-display text-3xl md:text-4xl font-light text-white tracking-tight">
                 {item.name}
               </h3>
-              <p className="mt-2 max-w-sm text-sm text-white/60 leading-relaxed hidden md:block">
+              <p className="mt-2 max-w-sm text-sm text-white/70 leading-relaxed hidden md:block">
                 {item.description}
               </p>
             </div>
             <div className="text-right shrink-0">
               <p className="overline mb-1">From</p>
-              <p className="font-display text-2xl md:text-3xl text-[#D4AF37]">{item.price}</p>
+              <p className="font-display text-2xl md:text-3xl text-[#D4AF37]" data-testid={`collection-price-${item.id}`}>
+                OMR {item.price}
+              </p>
             </div>
           </div>
 
-          {/* CTA reveal */}
-          <div className="mt-5 md:mt-7 flex items-center justify-between border-t border-white/10 pt-4 md:pt-5 translate-y-2 opacity-70 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-            <span className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.3em] uppercase text-[#D4AF37]">
-              <FaWhatsapp /> Enquire on WhatsApp
-            </span>
-            <ArrowUpRight className="text-[#D4AF37]" size={18} />
+          {/* Actions */}
+          <div className="flex flex-col sm:flex-row gap-3 border-t border-white/10 pt-5">
+            <button
+              onClick={() => addItem(item)}
+              className="group/btn flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#D4AF37] text-[#0A0908] text-[0.7rem] tracking-[0.3em] uppercase hover:bg-white transition-all duration-500"
+              data-testid={`add-to-cart-${item.id}`}
+            >
+              <ShoppingBag size={14} strokeWidth={1.6} />
+              Add to Cart
+              <ArrowUpRight size={14} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+            </button>
+            <button
+              onClick={() => onSizeGuide(item)}
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 border border-white/20 text-white/80 text-[0.7rem] tracking-[0.3em] uppercase hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-500"
+              data-testid={`size-guide-${item.id}`}
+            >
+              <Ruler size={13} strokeWidth={1.4} />
+              Size Guide
+            </button>
           </div>
         </div>
       </div>
-    </motion.a>
+    </motion.article>
   );
 };
 
 export const Collections = () => {
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
+
   return (
     <section
       id="collections"
@@ -126,19 +110,21 @@ export const Collections = () => {
               Four silhouettes. <span className="italic text-[#D4AF37]">Infinite</span> devotion.
             </h2>
           </div>
-          <p className="max-w-md text-white/60 text-base leading-relaxed">
-            Every piece is made to order in our Muscat atelier. Fabrics sourced
-            from Dubai, Istanbul & Paris — finished by hand in Oman.
-          </p>
+          <div className="flex items-start gap-4">
+            <p className="max-w-md text-white/60 text-base leading-relaxed">
+              Every piece is made to order in our Muscat atelier. Fabrics sourced from Dubai, Istanbul &amp; Paris — finished by hand in Oman.
+            </p>
+          </div>
         </div>
 
-        {/* Bento grid */}
         <div className="grid grid-cols-12 gap-6 md:gap-8">
-          {collections.map((c, i) => (
-            <Card key={c.name} item={c} index={i} />
+          {COLLECTIONS.map((c, i) => (
+            <Card key={c.id} item={c} index={i} onSizeGuide={() => setSizeGuideOpen(true)} />
           ))}
         </div>
       </div>
+
+      <SizeGuideModal open={sizeGuideOpen} onClose={() => setSizeGuideOpen(false)} />
     </section>
   );
 };

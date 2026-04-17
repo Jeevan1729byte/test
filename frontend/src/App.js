@@ -10,6 +10,8 @@ import WhatsAppBooking from "./components/WhatsAppBooking";
 import InstagramGrid from "./components/InstagramGrid";
 import Footer from "./components/Footer";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
+import Cart from "./components/Cart";
+import { CartProvider } from "./context/CartContext";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -23,21 +25,24 @@ function App() {
   }, [loaded]);
 
   return (
-    <div className="App relative bg-[#0A0908] text-white min-h-screen" data-testid="landing-root">
-      <Loader onComplete={() => setLoaded(true)} />
-      <Navigation />
-      <main>
-        <Hero />
-        <GoldMarquee />
-        <Collections />
-        <HowItWorks />
-        <Testimonials />
-        <WhatsAppBooking />
-        <InstagramGrid />
-      </main>
-      <Footer />
-      <FloatingWhatsApp />
-    </div>
+    <CartProvider>
+      <div className="App relative bg-[#0A0908] text-white min-h-screen" data-testid="landing-root">
+        <Loader onComplete={() => setLoaded(true)} />
+        <Navigation />
+        <main>
+          <Hero />
+          <GoldMarquee />
+          <Collections />
+          <HowItWorks />
+          <Testimonials />
+          <WhatsAppBooking />
+          <InstagramGrid />
+        </main>
+        <Footer />
+        <FloatingWhatsApp />
+        <Cart />
+      </div>
+    </CartProvider>
   );
 }
 
