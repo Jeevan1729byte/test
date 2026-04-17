@@ -1,0 +1,140 @@
+{
+  "theme": "dark",
+  "archetype": "5 (Jewel & Luxury)",
+  "design_philosophy": "High-fashion editorial aesthetic inspired by Vogue Arabia. Utilizes the Swiss Brutalist tension of high-contrast fonts (Cormorant Garamond vs geometric sans). Generous negative space and asymmetric bento grids for a premium, non-templated feel.",
+  "colors": {
+    "background_base": "#0A0908",
+    "background_surface": "#121110",
+    "background_glass": "rgba(10, 9, 8, 0.6)",
+    "primary_gold": "#D4AF37",
+    "primary_gold_glow": "rgba(212, 175, 55, 0.2)",
+    "text_primary": "#FAFAFA",
+    "text_secondary": "#A1A1AA",
+    "border_subtle": "rgba(255, 255, 255, 0.08)",
+    "border_gold_subtle": "rgba(212, 175, 55, 0.15)"
+  },
+  "typography": {
+    "font_primary": "Cormorant Garamond",
+    "font_secondary": "Outfit",
+    "font_weights": {
+      "heading_light": 300,
+      "heading_regular": 400,
+      "heading_bold": 600,
+      "body_light": 300,
+      "body_regular": 400
+    },
+    "scale": {
+      "h1": "text-5xl md:text-6xl tracking-tighter leading-none font-light",
+      "h2": "text-4xl md:text-5xl tracking-tight leading-tight font-light",
+      "h3": "text-2xl md:text-3xl tracking-tight font-light",
+      "h4": "text-xl md:text-2xl font-light",
+      "body": "text-base leading-relaxed tracking-wide",
+      "overline": "text-xs tracking-[0.2em] uppercase text-[#D4AF37]"
+    }
+  },
+  "spacing_and_layout": {
+    "container_padding": "px-6 md:px-12 lg:px-24",
+    "section_gap": "py-24 md:py-32",
+    "grid_bento": "grid-cols-1 md:grid-cols-12 gap-8 md:gap-12"
+  },
+  "motion_and_interaction": {
+    "scroll": "MANDATORY: Use lenis for smooth scrolling momentum.",
+    "hover_cards": "group-hover:opacity-100 transition-opacity duration-700 ease-out. Use subtle scale up for inner images: group-hover:scale-105 transition-transform duration-1000 ease-out.",
+    "buttons": "Hover state must invert colors (bg-transparent border-[#D4AF37] to bg-[#D4AF37] text-black) or add glow."
+  },
+  "components": {
+    "loader": {
+      "description": "Full-screen dark noir background. Brand name 'SheStylish' draws in elegantly (framer-motion text reveal) or fades in slowly with gold tint. Slides up out of viewport (-y 100%) after 2.5 seconds.",
+      "tech": "framer-motion"
+    },
+    "navigation": {
+      "style": "Fixed to top. Glassmorphism: backdrop-blur-xl bg-[#0A0908]/60. 1px bottom border-white/5. Minimalist links, center logo in Cormorant Garamond. Instagram link on the right.",
+      "behavior": "z-50. Must remain highly readable."
+    },
+    "hero_split": {
+      "layout": "min-h-screen pt-24. Desktop: 2-column grid. Left: massive typographic statement ('Editorial Elegance') + WhatsApp CTA. Right: Tall aspect ratio container with SVG abaya silhouette sketch.",
+      "visuals": "Use image 'abaya_sketch' or inline SVG for the right column. Left column background should be pure noir with subtle gold gradient blur hidden behind the text.",
+      "cta": "Primary button, gold border, white text, uppercase overline. Hover: solid gold bg, black text. Opens WhatsApp deep link."
+    },
+    "scrolling_marquee": {
+      "layout": "Full width, bg-transparent or very dark surface. py-6 border-y border-white/10.",
+      "typography": "Cormorant Garamond, text-3xl md:text-5xl, text-[#D4AF37], italic mixed with regular.",
+      "content": "Oman ✦ UAE ✦ Saudi Arabia ✦ Kuwait ✦ Qatar ✦ Bahrain",
+      "tech": "react-fast-marquee (slow speed, seamless)"
+    },
+    "collections_grid": {
+      "layout": "Bento Grid Mode A. 4 cards. 2 large (col-span-12 md:col-span-6, tall aspect ratio), 2 smaller or staggered. Generous gaps.",
+      "cards": "Cardless aesthetic. Just the image/SVG wrapper and text below it. Use abstract luxury textures or the Abaya Sketch image if SVG not provided. Hover reveals 'View on WhatsApp' button.",
+      "visuals": "Since 'no real product photos yet', use elegant inline SVG paths of abayas centered in tall dark containers with subtle border-[#D4AF37]/20."
+    },
+    "how_it_works": {
+      "layout": "4-step process. Vertical on mobile, horizontal zig-zag or timeline on desktop.",
+      "typography": "Step numbers in massive Cormorant Garamond (text-7xl) at 10% opacity behind the step text.",
+      "content": "1. Browse Collection 2. Select Style 3. WhatsApp Booking 4. Secure Delivery (GCC)."
+    },
+    "testimonials": {
+      "layout": "Minimalist centered slider or masonry bento. Deep surface background.",
+      "typography": "Large italicized Cormorant Garamond for the quote. Outfit for the author. Gold colored oversized quotation marks.",
+      "author": "Include 'Muscat, Oman', 'Dubai, UAE' as tracking-[0.2em] overlines."
+    },
+    "whatsapp_booking_section": {
+      "layout": "Bottom heavy CTA section. Large card with glassmorphism or solid dark grey.",
+      "visuals": "Minimalist form/button. Include GCC country flags (SVG/emoji) below the CTA to build regional trust.",
+      "cta": "Massive 'Book Now' button linking to WhatsApp."
+    },
+    "instagram_grid": {
+      "layout": "9-grid (3x3). No gaps (gap-0) or 1px gap. Group hover effects.",
+      "visuals": "Use the provided abstract dark luxury textures for placeholder images. On hover, grayscale turns to color, or subtle zoom."
+    },
+    "footer": {
+      "layout": "py-24. Large brand name at the bottom (text-[10vw])."
+    },
+    "floating_whatsapp": {
+      "style": "Fixed bottom-right. z-50. Gold background, black icon. Subtle pulsing animation (animate-pulse or ping on a backdrop ring)."
+    }
+  },
+  "testing": {
+    "attributes": "All interactive elements (WhatsApp buttons, nav links, collection cards) MUST include data-testid (e.g., data-testid='whatsapp-hero-btn', data-testid='nav-instagram-link')."
+  },
+  "assets": {
+    "images": [
+      {
+        "category": "hero_silhouette",
+        "url": "https://static.prod-images.emergentagent.com/jobs/8c22e434-663b-4020-99cc-f695c59e6add/images/3e2d8ddc04de465fef6e116cbf06a4b20592f20e9a8a1f8d70fe13d83d630f04.png",
+        "description": "Vogue editorial minimalist sketch of an abaya. Use in hero section."
+      },
+      {
+        "category": "background_texture",
+        "url": "https://static.prod-images.emergentagent.com/jobs/8c22e434-663b-4020-99cc-f695c59e6add/images/aed92b437006cd3ce4a63895e78ad3eadfd6383446771c400997f43185bc96e2.png",
+        "description": "Dark noir fabric with metallic gold threads. Use as a subtle section background (e.g., for testimonials or Instagram section backdrop)."
+      },
+      {
+        "category": "instagram_placeholder_1",
+        "url": "https://images.unsplash.com/photo-1771226281605-f1e505ade901?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwyfHxkYXJrJTIwbHV4dXJ5JTIwYWJzdHJhY3QlMjB0ZXh0dXJlfGVufDB8fHx8MTc3NjQzNjYzMnww&ixlib=rb-4.1.0&q=85",
+        "description": "Abstract dark geometric pattern with golden accents for Insta grid."
+      },
+      {
+        "category": "instagram_placeholder_2",
+        "url": "https://images.pexels.com/photos/31650443/pexels-photo-31650443.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Elegant abstract black satin fabric for Insta grid."
+      },
+      {
+        "category": "instagram_placeholder_3",
+        "url": "https://images.pexels.com/photos/7641151/pexels-photo-7641151.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Dark green/noir luxury fabric for Insta grid."
+      }
+    ],
+    "icons": "lucide-react for UI icons (Chevron, Menu). react-icons (FaWhatsapp, FaInstagram) for social logos.",
+    "whatsapp_link": "https://wa.me/96891234567?text=Hello%20She%20Stylish%20%F0%9F%8C%9F%20I%20would%20like%20to%20book%20an%20abaya%20please",
+    "instagram_link": "https://www.instagram.com/shestylish_designer"
+  },
+  "instructions_to_main_agent": [
+    "DO NOT use generic Shadcn components for the layout (Card, Section, etc.). Use pure HTML + Tailwind for structural asymmetry.",
+    "Ensure all backgrounds are tinted with a slight warm hue (#0A0908) rather than pure black (#000000) to keep it luxurious.",
+    "For the SVG abayas in the collection section, if you cannot use the provided sketch image, generate elegant, minimalist inline SVG paths of flowing dresses.",
+    "Use framer-motion for the loader and entrance animations. Use react-fast-marquee for the scrolling text.",
+    "In the Instagram grid section, use the provided placeholder texture images since real photos are unavailable.",
+    "Make sure all booking buttons link to the exact WhatsApp URL provided in assets.",
+    "Include data-testid attributes on all buttons and navigation links."
+  ]
+}
